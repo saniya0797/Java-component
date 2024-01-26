@@ -10,7 +10,12 @@ package programmingtheiot.gda.system;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryUsage;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
+import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigConst;
 
 /**
@@ -19,6 +24,11 @@ import programmingtheiot.common.ConfigConst;
  */
 public class SystemMemUtilTask extends BaseSystemUtilTask
 {
+	private static final Logger _Logger =
+			Logger.getLogger(SystemCpuUtilTask.class.getName());
+
+	MemoryUsage memUsage = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
+	double memUtil = ((double) memUsage.getUsed() / (double) memUsage.getMax()) * 100.0d;
 	// constructors
 	
 	/**
@@ -27,6 +37,7 @@ public class SystemMemUtilTask extends BaseSystemUtilTask
 	 */
 	public SystemMemUtilTask()
 	{
+
 		super(ConfigConst.NOT_SET, ConfigConst.DEFAULT_TYPE_ID);
 	}
 	
@@ -36,7 +47,17 @@ public class SystemMemUtilTask extends BaseSystemUtilTask
 	@Override
 	public float getTelemetryValue()
 	{
-		return 0.0f;
+
+		MemoryUsage memUsage = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
+		double memUsed = (double) memUsage.getUsed();
+		double memMax  = (double) memUsage.getMax();
+
+
+		_Logger.fine("Mem used: " + memUsed + "; Mem Max: " + memMax);
+
+		double memUtil = (memUsed / memMax) * 100.0d;
+
+		return (float) memUtil;
 	}
 	
 }
