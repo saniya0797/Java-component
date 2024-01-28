@@ -27,30 +27,38 @@ import programmingtheiot.common.ConfigConst;
  * Shell representation of class for student implementation.
  * 
  */
+/**
+ * Represents a system CPU utilization task that extends the BaseSystemUtilTask class.
+ */
 public class SystemCpuUtilTask extends BaseSystemUtilTask
 {
 	// constructors
-	
+
 	/**
-	 * Default.
-	 * 
+	 * Default constructor. Initializes the SystemCpuUtilTask with default values.
 	 */
 	public SystemCpuUtilTask()
 	{
 		super(ConfigConst.NOT_SET, ConfigConst.DEFAULT_TYPE_ID);
 	}
-	
-	
+
+
 	// public methods
-	
+
+	/**
+	 * Retrieves the current CPU utilization as telemetry value.
+	 *
+	 * @return The CPU utilization as a float value.
+	 */
 	@Override
 	public float getTelemetryValue()
 	{
-
+		// Retrieve the OperatingSystemMXBean to get system load average (CPU utilization).
 		OperatingSystemMXBean mxBean = ManagementFactory.getOperatingSystemMXBean();
 		double cpuUtil = mxBean.getSystemLoadAverage();
 
+		// Convert and return the CPU utilization as a float.
 		return (float) cpuUtil;
 	}
-	
+
 }
