@@ -25,66 +25,99 @@ import programmingtheiot.common.ResourceNameEnum;
 import programmingtheiot.data.SystemPerformanceData;
 
 /**
- * Shell representation of class for student implementation.
- * 
+ * Manages system performance tasks, such as CPU and memory utilization.
  */
 public class SystemPerformanceManager
 {
+	// Logger for logging messages related to this class
 	private static final Logger _Logger = Logger.getLogger(SystemPerformanceManager.class.getName());
 
-	// private var's
+	// private variables
+
+	// Polling rate for telemetry data retrieval
 	private int pollRate = ConfigConst.DEFAULT_POLL_CYCLES;
 
+	// ScheduledExecutorService for scheduling periodic tasks
 	private ScheduledExecutorService schedExecSvc = null;
+
+	// System CPU utilization task
 	private SystemCpuUtilTask sysCpuUtilTask = null;
+
+	// System memory utilization task
 	private SystemMemUtilTask sysMemUtilTask = null;
 
+	// Runnable task to be executed periodically
 	private Runnable taskRunner = null;
+
+	// Flag to track whether the manager is started
 	private boolean isStarted = false;
+
 	// constructors
 
 	/**
-	 * Default.
-	 * 
+	 * Default constructor. Initializes the SystemPerformanceManager with default values.
 	 */
 	public SystemPerformanceManager()
 	{
-		this.pollRate =
-				ConfigUtil.getInstance().getInteger(
-						ConfigConst.GATEWAY_DEVICE, ConfigConst.POLL_CYCLES_KEY, ConfigConst.DEFAULT_POLL_CYCLES);
+		// Retrieve polling rate from configuration, use default if not available or invalid
+		this.pollRate = ConfigUtil.getInstance().getInteger(
+				ConfigConst.GATEWAY_DEVICE, ConfigConst.POLL_CYCLES_KEY, ConfigConst.DEFAULT_POLL_CYCLES);
 
+		// Set default polling rate if the retrieved value is invalid
 		if (this.pollRate <= 0) {
 			this.pollRate = ConfigConst.DEFAULT_POLL_CYCLES;
 		}
+
+		// Initialize ScheduledExecutorService with a single-threaded pool
 		this.schedExecSvc   = Executors.newScheduledThreadPool(1);
+
+		// Create instances of system utilization tasks
 		this.sysCpuUtilTask = new SystemCpuUtilTask();
 		this.sysMemUtilTask = new SystemMemUtilTask();
 
+		// Define the task runner as a lambda expression
 		this.taskRunner = () -> {
 			this.handleTelemetry();
 		};
 	}
-	
-	
+
+
 	// public methods
 
+	/**
+	 * Handles telemetry by retrieving and logging CPU and memory utilization.
+	 */
 	public void handleTelemetry()
 	{
+		// Retrieve CPU and memory utilization values
 		float cpuUtil = this.sysCpuUtilTask.getTelemetryValue();
 		float memUtil = this.sysMemUtilTask.getTelemetryValue();
 
+		// Log CPU and memory utilization
 		_Logger.info("CPU utilization: " + cpuUtil + ", Mem utilization: " + memUtil);
 	}
-	
+
+	/**
+	 * Sets the data message listener (not implemented in this version).
+	 *
+	 * @param listener The data message listener to be set.
+	 */
 	public void setDataMessageListener(IDataMessageListener listener)
 	{
+		// Not implemented in this version
 	}
-	
+
+	/**
+	 * Starts the SystemPerformanceManager if it is not already started.
+	 *
+	 * @return True if the manager is started successfully, false otherwise.
+	 */
 	public boolean startManager()
 	{
-		if (! this.isStarted) {
+		if (!this.isStarted) {
 			_Logger.info("SystemPerformanceManager is starting...");
 
+			// Schedule the taskRunner at a fixed rate with the specified polling interval
 			ScheduledFuture<?> futureTask =
 					this.schedExecSvc.scheduleAtFixedRate(this.taskRunner, 1L, this.pollRate, TimeUnit.SECONDS);
 
@@ -96,8 +129,14 @@ public class SystemPerformanceManager
 		return this.isStarted;
 	}
 
+	/**
+	 * Stops the SystemPerformanceManager and shuts down the ScheduledExecutorService.
+	 *
+	 * @return True if the manager is stopped successfully, false otherwise.
+	 */
 	public boolean stopManager()
 	{
+		// Shutdown the ScheduledExecutorService
 		this.schedExecSvc.shutdown();
 		this.isStarted = false;
 
@@ -105,5 +144,5 @@ public class SystemPerformanceManager
 
 		return true;
 	}
-	
+
 }
