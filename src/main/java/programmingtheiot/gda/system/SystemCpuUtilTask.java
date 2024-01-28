@@ -30,6 +30,9 @@ import programmingtheiot.common.ConfigConst;
 /**
  * Represents a system CPU utilization task that extends the BaseSystemUtilTask class.
  */
+/**
+ * Represents a system CPU utilization task that extends the BaseSystemUtilTask class.
+ */
 public class SystemCpuUtilTask extends BaseSystemUtilTask
 {
 	// constructors
