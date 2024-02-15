@@ -19,7 +19,7 @@ import programmingtheiot.common.ConfigConst;
 import programmingtheiot.common.ConfigConst;
 
 /**
- * Shell representation of class for student implementation.
+ * 
  * 
  */
 /**
