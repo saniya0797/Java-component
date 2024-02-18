@@ -12,10 +12,7 @@ import java.io.Serializable;
 
 import programmingtheiot.common.ConfigConst;
 
-/**
- * Shell representation of class for student implementation.
- *
- */
+
 public class ActuatorData extends BaseIotData implements Serializable
 {
 	// static
@@ -32,7 +29,7 @@ public class ActuatorData extends BaseIotData implements Serializable
 	// constructors
 	
 	/**
-	 * Default.
+	 * Default constructor..
 	 * 
 	 */
 	public ActuatorData()
@@ -42,39 +39,72 @@ public class ActuatorData extends BaseIotData implements Serializable
 	
 	
 	// public methods
-	
+	/**
+	 * Gets the command associated with the actuator data.
+	 *
+	 * @return The command value.
+	 */
 	public int getCommand()
 	{
 		return this.command;
 	}
 	
+	/**
+	 * Gets the state data associated with the actuator data.
+	 *
+	 * @return The state data as a string.
+	 */
 	public String getStateData()
 	{
 		return this.stateData;
 	}
 	
+	/**
+	 * Gets the value associated with the actuator data.
+	 *
+	 * @return The value as a float.
+	 */
 	public float getValue()
 	{
 		return this.value;
 	}
 	
+	/**
+	 * Checks if the actuator data is marked as a response.
+	 *
+	 * @return True if it's a response, false otherwise.
+	 */
 	public boolean isResponseFlagEnabled()
 	{
 		return this.isResponse;
 	}
 	
+	/**
+	 * Marks the actuator data as a response.
+	 */
 	public void setAsResponse()
 	{
 		updateTimeStamp();
 		this.isResponse = true;
 	}
 	
+	
+	/**
+	 * Sets the command for the actuator data.
+	 *
+	 * @param command The command value to set.
+	 */
 	public void setCommand(int command)
 	{
 		updateTimeStamp();
 		this.command = command;
 	}
 	
+	/**
+	 * Sets the state data for the actuator data.
+	 *
+	 * @param stateData The state data as a string.
+	 */
 	public void setStateData(String stateData)
 	{
 		updateTimeStamp();
@@ -84,6 +114,11 @@ public class ActuatorData extends BaseIotData implements Serializable
 		}
 	}
 	
+	/**
+	 * Sets the value for the actuator data.
+	 *
+	 * @param val The value to set.
+	 */
 	public void setValue(float val)
 	{
 		updateTimeStamp();
@@ -92,6 +127,11 @@ public class ActuatorData extends BaseIotData implements Serializable
 	
 	
 	// protected methods
+	/**
+	 * Handles the update of actuator data based on another BaseIotData object.
+	 *
+	 * @param data The BaseIotData object to update from.
+	 */
 	
 	protected void handleUpdateData(BaseIotData data)
 	{
