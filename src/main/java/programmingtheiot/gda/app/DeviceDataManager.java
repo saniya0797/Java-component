@@ -33,10 +33,7 @@ import programmingtheiot.gda.connection.RedisPersistenceAdapter;
 import programmingtheiot.gda.connection.SmtpClientConnector;
 import programmingtheiot.gda.system.SystemPerformanceManager;
 
-/**
- * Shell representation of class for student implementation.
- *
- */
+
 public class DeviceDataManager implements IDataMessageListener
 {
 	// static
@@ -62,7 +59,10 @@ public class DeviceDataManager implements IDataMessageListener
 	private SystemPerformanceManager sysPerfMgr = null;
 
 	// constructors
-	
+	/**
+     * Default constructor for DeviceDataManager.
+     * Initializes the manager based on the configuration settings.
+     */
 	public DeviceDataManager()
 	{
 		super();
@@ -89,6 +89,10 @@ public class DeviceDataManager implements IDataMessageListener
 	initManager();
 		
 	}
+
+	 /**
+     * Initializes the manager based on configuration settings.
+     */
 
 	private void initManager()
 {
@@ -119,21 +123,27 @@ public class DeviceDataManager implements IDataMessageListener
 	}
 }
 	
-	// public DeviceDataManager(
-	// 	boolean enableMqttClient,
-	// 	boolean enableCoapClient,
-	// 	boolean enableCloudClient,
-	// 	boolean enableSmtpClient,
-	// 	boolean enablePersistenceClient)
-	// {
-	// 	super();
+	 public DeviceDataManager(
+	 	boolean enableMqttClient,
+	 	boolean enableCoapClient,
+	 	boolean enableCloudClient,
+	 	boolean enableSmtpClient,
+	 	boolean enablePersistenceClient)
+	 {
+	 	super();
 		
-	// 	initConnections();
-	// }
+	 	initManager();
+	 }
 	
 	
 	// public methods
-	
+	 /**
+     * Handles the response from an actuator command.
+     *
+     * @param resourceName The resource name associated with the actuator.
+     * @param data          The actuator data containing the response.
+     * @return True if the response was successfully handled, false otherwise.
+     */
 	@Override
 	public boolean handleActuatorCommandResponse(ResourceNameEnum resourceName, ActuatorData data)
 	{
@@ -152,13 +162,25 @@ public class DeviceDataManager implements IDataMessageListener
 			return false;
 		}
 	}
-
+	/**
+     * Handles a request for an actuator command.
+     *
+     * @param resourceName The resource name associated with the actuator.
+     * @param data          The actuator data containing the request.
+     * @return Always returns false as actuator command requests are not handled in this version.
+     */
 	@Override
 	public boolean handleActuatorCommandRequest(ResourceNameEnum resourceName, ActuatorData data)
 	{
 		return false;
 	}
-
+	/**
+     * Handles an incoming generic message.
+     *
+     * @param resourceName The resource name associated with the incoming message.
+     * @param msg           The incoming generic message.
+     * @return True if the message was successfully handled, false otherwise.
+     */
 	@Override
 	public boolean handleIncomingMessage(ResourceNameEnum resourceName, String msg)
 	{
@@ -170,7 +192,13 @@ public class DeviceDataManager implements IDataMessageListener
 			return false;
 		}
 	}
-
+	 /**
+     * Handles a sensor message.
+     *
+     * @param resourceName The resource name associated with the sensor.
+     * @param data          The sensor data.
+     * @return True if the sensor message was successfully handled, false otherwise.
+     */
 	@Override
 	public boolean handleSensorMessage(ResourceNameEnum resourceName, SensorData data)
 	{
@@ -186,6 +214,13 @@ public class DeviceDataManager implements IDataMessageListener
 			return false;
 		}
 	}
+	/**
+     * Handles a system performance message.
+     *
+     * @param resourceName The resource name associated with the system performance data.
+     * @param data          The system performance data.
+     * @return True if the system performance message was successfully handled, false otherwise.
+     */
 
 	@Override
 	public boolean handleSystemPerformanceMessage(ResourceNameEnum resourceName, SystemPerformanceData data)
@@ -202,11 +237,19 @@ public class DeviceDataManager implements IDataMessageListener
 			return false;
 		}
 	}
-	
+	/**
+     * Sets the actuator data listener for a specific actuator.
+     *
+     * @param name     The name of the actuator.
+     * @param listener The actuator data listener.
+     */
 	public void setActuatorDataListener(String name, IActuatorDataListener listener)
 	{
 	}
 	
+	/**
+     * Starts the manager, initiating necessary actions based on the enabled features.
+     */
 	public void startManager()
 	{
 		if (this.sysPerfMgr != null) {
@@ -214,6 +257,10 @@ public class DeviceDataManager implements IDataMessageListener
 		}
 	}
 	
+	 /**
+     * Stops the manager, terminating ongoing processes based on the enabled features.
+     */
+
 	public void stopManager()
 	{
 		if (this.sysPerfMgr != null) {
@@ -229,8 +276,6 @@ public class DeviceDataManager implements IDataMessageListener
 	 * instances that will be used in the {@link #startManager() and #stopManager()) methods.
 	 * 
 	 */
-	private void initConnections()
-	{
-	}
+	
 	
 }
