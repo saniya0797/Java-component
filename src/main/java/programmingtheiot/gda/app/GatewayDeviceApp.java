@@ -48,7 +48,7 @@ public class GatewayDeviceApp
 		super();
 
 		_Logger.info("Initializing GDA...");
-		this.dataMgr = new DeviceDataManager();
+		// this.dataMgr = new DeviceDataManager();
 
 		
 	}

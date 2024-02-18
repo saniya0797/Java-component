@@ -26,8 +26,7 @@ import programmingtheiot.common.ConfigConst;
 public class DataUtil
 {
 	// static
-	private static final Logger   _Logger   =
-		Logger.getLogger(DataUtil.class.getName());
+	private static final Logger _Logger =Logger.getLogger(DataUtil.class.getName());
 	private static final DataUtil _Instance = new DataUtil();
 	
 
@@ -48,9 +47,8 @@ public class DataUtil
 	// constructors
 	
 	/**
-	 * Default (private).
-	 * 
-	 */
+     * Default constructor (private).
+     */
 	private DataUtil()
 	{
 		super();
@@ -58,7 +56,12 @@ public class DataUtil
 	
 	
 	// public methods
-	
+	/**
+     * Converts an ActuatorData object to JSON format.
+     *
+     * @param actuatorData The ActuatorData object to convert.
+     * @return A JSON-formatted string representing the ActuatorData object.
+     */
 	public String actuatorDataToJson(ActuatorData actuatorData)
 	{
 		
@@ -72,6 +75,12 @@ public class DataUtil
 		return jsonData;
 	}
 	
+	/**
+     * Converts a SensorData object to JSON format.
+     *
+     * @param sensorData The SensorData object to convert.
+     * @return A JSON-formatted string representing the SensorData object.
+     */
 	public String sensorDataToJson(SensorData sensorData)
 	{
 		String jsonData = null;
@@ -83,7 +92,13 @@ public class DataUtil
 		
 		return jsonData;
 	}
-	
+
+	/**
+     * Converts a SystemPerformanceData object to JSON format.
+     *
+     * @param sysPerfData The SystemPerformanceData object to convert.
+     * @return A JSON-formatted string representing the SystemPerformanceData object.
+     */
 	public String systemPerformanceDataToJson(SystemPerformanceData sysPerfData)
 	{
 		String jsonData = null;
@@ -96,6 +111,13 @@ public class DataUtil
 		return jsonData;
 	}
 	
+    /**
+     * Converts a SystemStateData object to JSON format.
+     *
+     * @param sysStateData The SystemStateData object to convert.
+     * @return A JSON-formatted string representing the SystemStateData object.
+     */
+
 	public String systemStateDataToJson(SystemStateData sysStateData)
 	{
 		String jsonData = null;
@@ -108,6 +130,12 @@ public class DataUtil
 		return jsonData;
 	}
 	
+	 /**
+     * Converts a JSON-formatted string to an ActuatorData object.
+     *
+     * @param jsonData The JSON-formatted string to convert.
+     * @return An ActuatorData object parsed from the JSON string.
+     */
 	public ActuatorData jsonToActuatorData(String jsonData)
 	{
 		ActuatorData data = null;
@@ -121,6 +149,12 @@ public class DataUtil
 	
 	}
 	
+	/**
+     * Converts a JSON-formatted string to a SensorData object.
+     *
+     * @param jsonData The JSON-formatted string to convert.
+     * @return A SensorData object parsed from the JSON string.
+     */
 	public SensorData jsonToSensorData(String jsonData)
 	{
 		SensorData data = null;
@@ -133,6 +167,12 @@ public class DataUtil
 		return data;
 	}
 	
+	/**
+     * Converts a JSON-formatted string to a SystemPerformanceData object.
+     *
+     * @param jsonData The JSON-formatted string to convert.
+     * @return A SystemPerformanceData object parsed from the JSON string.
+     */
 	public SystemPerformanceData jsonToSystemPerformanceData(String jsonData)
 	{
 		SystemPerformanceData data = null;
@@ -145,6 +185,12 @@ public class DataUtil
 		return data;
 	}
 	
+	/**
+     * Converts a JSON-formatted string to a SystemStateData object.
+     *
+     * @param jsonData The JSON-formatted string to convert.
+     * @return A SystemStateData object parsed from the JSON string.
+     */
 	public SystemStateData jsonToSystemStateData(String jsonData)
 	{
 		SystemStateData data = null;
