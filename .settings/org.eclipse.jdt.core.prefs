@@ -4,9 +4,23 @@ org.eclipse.jdt.core.compiler.annotation.nonnull=javax.annotation.Nonnull
 org.eclipse.jdt.core.compiler.annotation.nonnullbydefault=javax.annotation.ParametersAreNonnullByDefault
 org.eclipse.jdt.core.compiler.annotation.nullable=javax.annotation.Nullable
 org.eclipse.jdt.core.compiler.annotation.nullanalysis=enabled
+<<<<<<< HEAD
+=======
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=11
+org.eclipse.jdt.core.compiler.compliance=11
+org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+>>>>>>> 4639a78 (update-module2)
 org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
 org.eclipse.jdt.core.compiler.problem.nullAnnotationInferenceConflict=warning
 org.eclipse.jdt.core.compiler.problem.nullReference=warning
 org.eclipse.jdt.core.compiler.problem.nullSpecViolation=warning
 org.eclipse.jdt.core.compiler.problem.potentialNullReference=warning
+<<<<<<< HEAD
 org.eclipse.jdt.core.compiler.problem.syntacticNullAnalysisForFields=enabled
+=======
+org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+org.eclipse.jdt.core.compiler.problem.syntacticNullAnalysisForFields=enabled
+org.eclipse.jdt.core.compiler.processAnnotations=disabled
+org.eclipse.jdt.core.compiler.release=disabled
+org.eclipse.jdt.core.compiler.source=11
+>>>>>>> 4639a78 (update-module2)
