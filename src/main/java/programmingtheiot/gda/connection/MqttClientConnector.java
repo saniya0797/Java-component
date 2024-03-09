@@ -31,6 +31,7 @@ import programmingtheiot.common.ResourceNameEnum;
  * Shell representation of class for student implementation.
  * 
  */
+
 public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended
 {
 	// static
