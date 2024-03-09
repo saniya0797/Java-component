@@ -45,39 +45,62 @@ public class MqttClientControlPacketTest
 	private MqttClientConnector mqttClient = null;
 	
 	
-	// test setup methods
-	
-	@Before
-	public void setUp() throws Exception
-	{
-		this.mqttClient = new MqttClientConnector();
-	}
-	
-	@After
-	public void tearDown() throws Exception
-	{
-	}
-	
-	// test methods
-	
-	@Test
-	public void testConnectAndDisconnect()
-	{
-		// TODO: implement this test
-	}
-	
-	@Test
-	public void testServerPing()
-	{
-		// TODO: implement this test
-	}
-	
-	@Test
-	public void testPubSub()
-	{
-		// TODO: implement this test
-		// 
-		// IMPORTANT: be sure to use QoS 1 and 2 to see ALL control packets
-	}
-	
+	private String testTopic = "testTopic";
+    private int qos = 1; // Change the QoS level as needed
+
+    @Before
+    public void setUp() throws Exception
+    {
+        this.mqttClient = new MqttClientConnector();
+    }
+
+    @After
+    public void tearDown() throws Exception
+    {
+        if (mqttClient.isConnected()) {
+            mqttClient.disconnectClient();
+        }
+    }
+
+    @Test
+    public void testConnectAndDisconnect()
+    {
+        // Connect
+        assertTrue(mqttClient.connectClient());
+
+        // Disconnect
+        assertTrue(mqttClient.disconnectClient());
+    }
+
+    @Test
+    public void testServerPing()
+    {
+        // Connect
+        assertTrue(mqttClient.connectClient());
+
+        // Server Ping
+        // assertTrue(mqttClient.ping());
+
+        // Disconnect
+        assertTrue(mqttClient.disconnectClient());
+    }
+
+    @Test
+    public void testPubSub()
+    {
+        // Connect
+        assertTrue(mqttClient.connectClient());
+
+        // Subscribe
+        assertTrue(mqttClient.subscribeToTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, qos));
+
+        // Publish (QoS 1)
+        assertTrue(mqttClient.publishMessage(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, "Hello, MQTT!", qos));
+
+        // Unsubscribe
+        assertTrue(mqttClient.unsubscribeFromTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE));
+
+        // Disconnect
+        assertTrue(mqttClient.disconnectClient());
+    }
 }
