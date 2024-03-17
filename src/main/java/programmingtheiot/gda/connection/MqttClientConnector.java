@@ -27,10 +27,7 @@ import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.common.IDataMessageListener;
 import programmingtheiot.common.ResourceNameEnum;
 
-/**
- * Shell representation of class for student implementation.
- * 
- */
+
 
 public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended
 {
@@ -55,11 +52,11 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended
 	private int     brokerKeepAlive = ConfigConst.DEFAULT_KEEP_ALIVE;
 	
 	// constructors
-	
-	/**
-	 * Default.
-	 * 
-	 */
+    
+    /**
+     * Default constructor.
+     * Initializes the MQTT client connector with default values.
+     */
 	public MqttClientConnector()
 {
 	super();
@@ -120,8 +117,13 @@ public class MqttClientConnector implements IPubSubClient, MqttCallbackExtended
 	this.brokerAddr = this.protocol + "://" + this.host + ":" + this.port;
 }
 	
-	// public methods
-	
+// public methods
+    
+    /**
+     * Connects the MQTT client to the broker.
+     * 
+     * @return boolean True if the connection is successful, false otherwise.
+     */	
 	
 	@Override
 public boolean connectClient()
@@ -146,7 +148,12 @@ public boolean connectClient()
 	
 	return false;
 }
-
+	
+	/**
+     * Disconnects the MQTT client from the broker.
+     * 
+     * @return boolean True if the disconnection is successful, false otherwise.
+     */
 	@Override
 	public boolean disconnectClient()
 	{
@@ -167,12 +174,23 @@ public boolean connectClient()
 		
 		return false;
 	}
-
+	    /**
+     * Checks if the MQTT client is connected to the broker.
+     * 
+     * @return boolean True if connected, false otherwise.
+     */
 	public boolean isConnected()
 	{
 		return (this.mqttClient != null && this.mqttClient.isConnected());
 	}
-	
+	/**
+     * Publishes a message to the specified topic.
+     * 
+     * @param topicName The name of the topic to publish the message to.
+     * @param msg The message to publish.
+     * @param qos The quality of service level for message delivery.
+     * @return boolean True if the message is published successfully, false otherwise.
+     */
 	@Override
 	public boolean publishMessage(ResourceNameEnum topicName, String msg, int qos)
 	{
@@ -204,6 +222,13 @@ public boolean connectClient()
 		return false;
 	}
 
+	/**
+     * Subscribes to the specified topic.
+     * 
+     * @param topicName The name of the topic to subscribe to.
+     * @param qos The quality of service level for message delivery.
+     * @return boolean True if subscription is successful, false otherwise.
+     */
 	@Override
 	public boolean subscribeToTopic(ResourceNameEnum topicName, int qos)
 	{
@@ -226,7 +251,12 @@ public boolean connectClient()
 		
 		return false;
 	}
-
+	/**
+     * Unsubscribes from the specified topic.
+*
+* @param topicName The name of the topic to unsubscribe from.
+* @return boolean True if unsubscription is successful, false otherwise.
+*/
 	@Override
 	public boolean unsubscribeFromTopic(ResourceNameEnum topicName)
 	{
@@ -245,13 +275,23 @@ public boolean connectClient()
 		
 		return false;
 	}
-
+	/**
+ * Sets the connection listener for the MQTT client.
+ * 
+ * @param listener The connection listener to set.
+ * @return boolean True if setting the connection listener is successful, false otherwise.
+ */
 	@Override
 	public boolean setConnectionListener(IConnectionListener listener)
 	{
 		return false;
 	}
-	
+	/**
+ * Sets the data message listener for the MQTT client.
+ * 
+ * @param listener The data message listener to set.
+ * @return boolean True if setting the data message listener is successful, false otherwise.
+ */
 	@Override
 	public boolean setDataMessageListener(IDataMessageListener listener)
 	{
@@ -262,7 +302,13 @@ public boolean connectClient()
 		
 		return false;
 	}
-	// callbacks
+	// 
+	/**
+ * Called when the MQTT client connection is complete.
+ * 
+ * @param reconnect Indicates if the connection is a reconnect.
+ * @param serverURI The server URI.
+ */
 	
 	@Override
 	public void connectComplete(boolean reconnect, String serverURI)
@@ -271,20 +317,37 @@ public boolean connectClient()
 
 	}
 
+	/**
+ * Called when the connection to the MQTT broker is lost.
+ * 
+ * @param t The Throwable object representing the cause of the connection loss.
+ */
+
 	@Override
 	public void connectionLost(Throwable t)
 	{
 			_Logger.log(Level.WARNING, "Lost connection to MQTT broker: " + this.brokerAddr, t);
 
 	}
-		
+	
+	/**
+ * Called when a message delivery is complete.
+ * 
+ * @param token The delivery token.
+ */
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token)
 	{
 		// TODO: Logging level may need to be adjusted to see output in log file / console
 		_Logger.fine("Delivered MQTT message with ID: " + token.getMessageId());
 	}
-		
+	
+	/**
+ * Called when a message arrives on the subscribed topic.
+ * 
+ * @param topic The topic on which the message arrived.
+ * @param message The arrived MQTT message.
+ */
 	@Override
 	public void messageArrived(String topic, MqttMessage message)
 	{
