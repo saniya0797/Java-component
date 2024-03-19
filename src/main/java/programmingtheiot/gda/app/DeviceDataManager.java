@@ -22,8 +22,8 @@ import programmingtheiot.data.DataUtil;
 import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 import programmingtheiot.data.SystemStateData;
-
 import programmingtheiot.gda.connection.CloudClientConnector;
+
 import programmingtheiot.gda.connection.CoapServerGateway;
 import programmingtheiot.gda.connection.IPersistenceClient;
 import programmingtheiot.gda.connection.IPubSubClient;
@@ -44,7 +44,7 @@ public class DeviceDataManager implements IDataMessageListener
 	// private var's
 	
 	private boolean enableMqttClient = true;
-	private boolean enableCoapServer = false;
+	private boolean enableCoapServer = true;
 	private boolean enableCloudClient = false;
 	private boolean enableSmtpClient = false;
 	private boolean enablePersistenceClient = false;
@@ -69,7 +69,7 @@ public class DeviceDataManager implements IDataMessageListener
 		
 	
 	ConfigUtil configUtil = ConfigUtil.getInstance();
-	
+	this.coapServer = new CoapServerGateway(this);
 	this.enableMqttClient =
 		configUtil.getBoolean(
 			ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
@@ -115,7 +115,7 @@ public class DeviceDataManager implements IDataMessageListener
 	}
 	
 	if (this.enableCoapServer) {
-		// TODO: implement this in Lab Module 8
+		this.coapServer = new CoapServerGateway(this);
 	}
 	
 	if (this.enableCloudClient) {
@@ -166,6 +166,19 @@ public class DeviceDataManager implements IDataMessageListener
 			return false;
 		}
 	}
+
+	private void handleIncomingDataAnalysis(ResourceNameEnum resource, ActuatorData data)
+{
+	_Logger.info("Analyzing incoming actuator data: " + data.getName());
+	
+	if (data.isResponseFlagEnabled()) {
+		// TODO: implement this
+	} else {
+		if (this.actuatorDataListener != null) {
+			this.actuatorDataListener.onActuatorDataUpdate(data);
+		}
+	}
+}
 	/**
      * Handles a request for an actuator command.
      *
@@ -249,6 +262,11 @@ public class DeviceDataManager implements IDataMessageListener
      */
 	public void setActuatorDataListener(String name, IActuatorDataListener listener)
 	{
+		if (listener != null) {
+			// for now, just ignore 'name' - if you need more than one listener,
+			// you can use 'name' to create a map of listener instances
+			this.actuatorDataListener = listener;
+		}
 	}
 	
 	/**
@@ -285,6 +303,14 @@ public class DeviceDataManager implements IDataMessageListener
 		}
 	}
 	
+	if (this.enableCoapServer && this.coapServer != null) {
+		if (this.coapServer.startServer()) {
+			_Logger.info("CoAP server started.");
+		} else {
+			_Logger.severe("Failed to start CoAP server. Check log file for details.");
+		}
+	}
+
 	if (this.sysPerfMgr != null) {
 		this.sysPerfMgr.startManager();
 	}
@@ -322,6 +348,14 @@ public class DeviceDataManager implements IDataMessageListener
 				_Logger.severe("Failed to disconnect MQTT client from broker.");
 				
 				// TODO: take appropriate action
+			}
+		}
+
+		if (this.enableCoapServer && this.coapServer != null) {
+			if (this.coapServer.stopServer()) {
+				_Logger.info("CoAP server stopped.");
+			} else {
+				_Logger.severe("Failed to stop CoAP server. Check log file for details.");
 			}
 		}
 	}
