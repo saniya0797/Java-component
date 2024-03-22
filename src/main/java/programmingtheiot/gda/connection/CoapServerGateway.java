@@ -74,10 +74,10 @@ public class CoapServerGateway
 		initServer();
 	}
 
-	CoapResource top =
-    new CoapResource("PIOT").add(
+	 CoapResource top =
+     new CoapResource("PIOT").add(
         new CoapResource("ConstrainedDevice").add(
-            new UpdateSystemPerformanceResourceHandler("SystemPerfMsg")));
+             new UpdateSystemPerformanceResourceHandler("SystemPerfMsg")));
 	// public methods
 	
 	public void addResource(ResourceNameEnum resourceType, String endName, Resource resource)

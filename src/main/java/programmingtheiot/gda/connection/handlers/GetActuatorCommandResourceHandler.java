@@ -17,7 +17,6 @@ public class GetActuatorCommandResourceHandler extends CoapResource implements I
 
 private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourceHandler.class.getName());
 	
-	// params
 	
 	private ActuatorData actuatorData = null;
     public GetActuatorCommandResourceHandler(String resourceName) {
@@ -43,21 +42,74 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
     }
 
    @Override
-public void handleGET(CoapExchange context)
-{
-    // TODO: validate 'context'
+    public void handleGET(CoapExchange context)
+    {
+        // TODO: validate 'context'
+        
+        // accept the request
+        context.accept();
+        _Logger.fine("HandleGET is Successfull");
+
+        // TODO: convert the locally stored ActuatorData to JSON using DataUtil
+        String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
+
+        // TODO: generate a response message, set the content type, and set the response code
+
+        // send an appropriate response
+        context.respond(ResponseCode.CONTENT, jsonData);
+    }
+    @Override
+    public void handlePUT(CoapExchange context)
+    {
+        // TODO: validate 'context'
+        
+        // accept the request
+        context.accept();
+        _Logger.fine("HandleGET is Successfull");
+
+        // TODO: convert the locally stored ActuatorData to JSON using DataUtil
+        String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
+
+        // TODO: generate a response message, set the content type, and set the response code
+
+        // send an appropriate response
+        context.respond(ResponseCode.CONTENT, jsonData);
+    }
+    @Override
+    public void handlePOST(CoapExchange context)
+    {
+        // TODO: validate 'context'
+        
+        // accept the request
+        context.accept();
+        _Logger.fine("HandleGET is Successfull");
+
+        // TODO: convert the locally stored ActuatorData to JSON using DataUtil
+        String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
+
+        // TODO: generate a response message, set the content type, and set the response code
+
+        // send an appropriate response
+        context.respond(ResponseCode.CONTENT, jsonData);
+    }
+    @Override
+    public void handleDELETE(CoapExchange context)
+    {
+        // TODO: validate 'context'
+        
+        // accept the request
+        context.accept();
+        _Logger.fine("HandleGET is Successfull");
+
+        // TODO: convert the locally stored ActuatorData to JSON using DataUtil
+        String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
+
+        // TODO: generate a response message, set the content type, and set the response code
+
+        // send an appropriate response
+        context.respond(ResponseCode.CONTENT, jsonData);
+    }
+
     
-    // accept the request
-    context.accept();
-    _Logger.fine("HandleGET is Successfull");
-
-    // TODO: convert the locally stored ActuatorData to JSON using DataUtil
-    String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
-
-    // TODO: generate a response message, set the content type, and set the response code
-
-    // send an appropriate response
-    context.respond(ResponseCode.CONTENT, jsonData);
-}
 
 }

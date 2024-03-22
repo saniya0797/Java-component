@@ -78,12 +78,12 @@ public class CoapServerGatewayTest
 	{
 		try {
 			String url =
-				ConfigConst.DEFAULT_COAP_PROTOCOL + "://" + ConfigConst.DEFAULT_HOST + ":" + ConfigConst.DEFAULT_COAP_PORT;
+			"coap://localhost:5683";
 			
 			this.csg = new CoapServerGateway(new DefaultDataMessageListener());
 			this.csg.startServer();
 			
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
 			
 			CoapClient clientConn = new CoapClient(url);
 			
