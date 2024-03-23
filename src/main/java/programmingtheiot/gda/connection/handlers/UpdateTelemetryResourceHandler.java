@@ -11,6 +11,7 @@ import programmingtheiot.common.ConfigUtil;
 import programmingtheiot.common.IDataMessageListener;
 import programmingtheiot.common.ResourceNameEnum;
 import programmingtheiot.data.DataUtil;
+import programmingtheiot.data.SensorData;
 import programmingtheiot.data.SystemPerformanceData;
 
 public class UpdateTelemetryResourceHandler extends CoapResource {
@@ -41,8 +42,8 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 			try {
 				String jsonData = new String(context.getRequestPayload());
 				
-				SystemPerformanceData sysPerfData =
-					DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
+				SensorData sensorData =
+					DataUtil.getInstance().jsonToSensorData(jsonData);
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -50,8 +51,8 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 				//   2) Cache the previous update – is the PAYLOAD repeated?
 				//   2) Delegate the data check to this.dataMsgListener
 				
-				this.dataMsgListener.handleSystemPerformanceMessage(
-					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
+				this.dataMsgListener.handleSensorMessage(
+					ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE, sensorData);
 				
 				code = ResponseCode.CHANGED;
 			} catch (Exception e) {
@@ -76,17 +77,47 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 	@Override
 	public void handleGET(CoapExchange context)
 	{
-		ResponseCode code = ResponseCode.CONTENT;
-
-		_Logger.info("GET request received.");
-	
+		ResponseCode code = ResponseCode.NOT_ACCEPTABLE;
+		
 		context.accept();
-	
-		String msg = "GET request handled: " + super.getName();
-	
+		
+		if (this.dataMsgListener != null) {
+			try {
+				String jsonData = new String(context.getRequestPayload());
+				
+				SensorData sensorData =
+					DataUtil.getInstance().jsonToSensorData(jsonData);
+				
+				// TODO: Choose the following (but keep it idempotent!) 
+				//   1) Check MID to see if it’s repeated for some reason
+				//      - optional, as the underlying lib should handle this
+				//   2) Cache the previous update – is the PAYLOAD repeated?
+				//   2) Delegate the data check to this.dataMsgListener
+				
+				this.dataMsgListener.handleSensorMessage(
+					ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE, sensorData);
+				
+				code = ResponseCode.CONTENT;
+			} catch (Exception e) {
+				_Logger.warning(
+					"Failed to handle PUT request. Message: " +
+						e.getMessage());
+				
+				code = ResponseCode.BAD_REQUEST;
+			}
+		} else {
+			_Logger.info(
+				"No callback listener for request. Ignoring PUT.");
+			
+			code = ResponseCode.CONTINUE;
+		}
+		
+		String msg =
+			"Update system perf data request handled: " + super.getName();
+		
 		context.respond(code, msg);
 	}
-	
+
 	@Override
 	public void handlePOST(CoapExchange context)
 	{
@@ -98,8 +129,8 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 			try {
 				String jsonData = new String(context.getRequestPayload());
 				
-				SystemPerformanceData sysPerfData =
-					DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
+				SensorData sensorData =
+					DataUtil.getInstance().jsonToSensorData(jsonData);
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -107,10 +138,10 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 				//   2) Cache the previous update – is the PAYLOAD repeated?
 				//   2) Delegate the data check to this.dataMsgListener
 				
-				this.dataMsgListener.handleSystemPerformanceMessage(
-					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
+				this.dataMsgListener.handleSensorMessage(
+					ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE, sensorData);
 				
-				code = ResponseCode.CHANGED;
+				code = ResponseCode.CREATED;
 			} catch (Exception e) {
 				_Logger.warning(
 					"Failed to handle POST request. Message: " +
@@ -141,8 +172,8 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 			try {
 				String jsonData = new String(context.getRequestPayload());
 				
-				SystemPerformanceData sysPerfData =
-					DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
+				SensorData sensorData =
+					DataUtil.getInstance().jsonToSensorData(jsonData);
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -150,10 +181,10 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 				//   2) Cache the previous update – is the PAYLOAD repeated?
 				//   2) Delegate the data check to this.dataMsgListener
 				
-				this.dataMsgListener.handleSystemPerformanceMessage(
-					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
+				this.dataMsgListener.handleSensorMessage(
+					ResourceNameEnum.CDA_SENSOR_MSG_RESOURCE, sensorData);
 				
-				code = ResponseCode.CHANGED;
+				code = ResponseCode.DELETED;
 			} catch (Exception e) {
 				_Logger.warning(
 					"Failed to handle DELETE request. Message: " +

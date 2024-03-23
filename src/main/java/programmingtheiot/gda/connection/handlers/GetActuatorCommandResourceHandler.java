@@ -65,7 +65,7 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         
         // accept the request
         context.accept();
-        _Logger.fine("HandleGET is Successfull");
+        _Logger.fine("Handleput is Successfull");
 
         // TODO: convert the locally stored ActuatorData to JSON using DataUtil
         String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
@@ -73,7 +73,7 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         // TODO: generate a response message, set the content type, and set the response code
 
         // send an appropriate response
-        context.respond(ResponseCode.CONTENT, jsonData);
+        context.respond(ResponseCode.CHANGED, jsonData);
     }
     @Override
     public void handlePOST(CoapExchange context)
@@ -82,7 +82,7 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         
         // accept the request
         context.accept();
-        _Logger.fine("HandleGET is Successfull");
+        _Logger.fine("HandlePost is Successfull");
 
         // TODO: convert the locally stored ActuatorData to JSON using DataUtil
         String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
@@ -90,7 +90,7 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         // TODO: generate a response message, set the content type, and set the response code
 
         // send an appropriate response
-        context.respond(ResponseCode.CONTENT, jsonData);
+        context.respond(ResponseCode.CREATED, jsonData);
     }
     @Override
     public void handleDELETE(CoapExchange context)
@@ -99,7 +99,7 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         
         // accept the request
         context.accept();
-        _Logger.fine("HandleGET is Successfull");
+        _Logger.fine("HandleDelete is Successfull");
 
         // TODO: convert the locally stored ActuatorData to JSON using DataUtil
         String jsonData = DataUtil.getInstance().actuatorDataToJson(this.actuatorData);
@@ -107,7 +107,7 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         // TODO: generate a response message, set the content type, and set the response code
 
         // send an appropriate response
-        context.respond(ResponseCode.CONTENT, jsonData);
+        context.respond(ResponseCode.DELETED, jsonData);
     }
 
     

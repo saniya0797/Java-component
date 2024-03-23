@@ -97,7 +97,7 @@ public class UpdateSystemPerformanceResourceHandler  extends CoapResource {
 				this.dataMsgListener.handleSystemPerformanceMessage(
 					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
 				
-				code = ResponseCode.CHANGED;
+				code = ResponseCode.CONTENT;
 			} catch (Exception e) {
 				_Logger.warning(
 					"Failed to handle GET request. Message: " +
@@ -141,7 +141,7 @@ public class UpdateSystemPerformanceResourceHandler  extends CoapResource {
 				this.dataMsgListener.handleSystemPerformanceMessage(
 					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
 				
-				code = ResponseCode.CHANGED;
+				code = ResponseCode.CREATED;
 			} catch (Exception e) {
 				_Logger.warning(
 					"Failed to handle POST request. Message: " +
@@ -184,7 +184,7 @@ public class UpdateSystemPerformanceResourceHandler  extends CoapResource {
 				this.dataMsgListener.handleSystemPerformanceMessage(
 					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
 				
-				code = ResponseCode.CHANGED;
+				code = ResponseCode.DELETED;
 			} catch (Exception e) {
 				_Logger.warning(
 					"Failed to handle DELETE request. Message: " +
