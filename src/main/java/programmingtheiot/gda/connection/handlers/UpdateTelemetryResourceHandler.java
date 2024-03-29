@@ -71,7 +71,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update sensor data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
@@ -114,7 +114,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update sensor  data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
@@ -203,7 +203,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update sensor data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
