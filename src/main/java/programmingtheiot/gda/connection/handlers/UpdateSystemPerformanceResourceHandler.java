@@ -19,17 +19,18 @@ public class UpdateSystemPerformanceResourceHandler  extends CoapResource {
         super(resourceName);
         //TODO Auto-generated constructor stub
     }
-
+private SystemPerformanceData systemPerformanceData=null;
     private IDataMessageListener dataMsgListener = null;
     private static final Logger _Logger =
 		Logger.getLogger(UpdateSystemPerformanceResourceHandler.class.getName());
 
+		
     public void setDataMessageListener(IDataMessageListener listener)
-{
-	if (listener != null) {
-		this.dataMsgListener = listener;
-	}
-}
+		{
+			if (listener != null) {
+				this.dataMsgListener = listener;
+			}
+		}
 		@Override
 	public void handlePUT(CoapExchange context)
 	{
@@ -83,10 +84,10 @@ public class UpdateSystemPerformanceResourceHandler  extends CoapResource {
 		
 		if (this.dataMsgListener != null) {
 			try {
-				String jsonData = new String(context.getRequestPayload());
+				String jsonData = "";
 				
-				SystemPerformanceData sysPerfData =
-					DataUtil.getInstance().jsonToSystemPerformanceData(jsonData);
+				jsonData  =
+					DataUtil.getInstance().systemPerformanceDataToJson(this.systemPerformanceData);
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -95,7 +96,7 @@ public class UpdateSystemPerformanceResourceHandler  extends CoapResource {
 				//   2) Delegate the data check to this.dataMsgListener
 				
 				this.dataMsgListener.handleSystemPerformanceMessage(
-					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
+					ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, systemPerformanceData);
 				
 				code = ResponseCode.CONTENT;
 			} catch (Exception e) {

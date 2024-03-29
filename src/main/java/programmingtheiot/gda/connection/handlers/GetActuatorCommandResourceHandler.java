@@ -48,6 +48,9 @@ private static final Logger _Logger = Logger.getLogger(GetActuatorCommandResourc
         
         // accept the request
         context.accept();
+        if(this.actuatorData==null){
+            this.actuatorData=new ActuatorData();
+        }
         _Logger.fine("HandleGET is Successfull");
 
         // TODO: convert the locally stored ActuatorData to JSON using DataUtil
