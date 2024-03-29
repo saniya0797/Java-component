@@ -21,6 +21,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
         //TODO Auto-generated constructor stub
     }
 
+	private SensorData sensorData = null;
     private IDataMessageListener dataMsgListener = null;
     private static final Logger _Logger =
 		Logger.getLogger(UpdateTelemetryResourceHandler.class.getName());
@@ -70,7 +71,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update sensor data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
@@ -83,10 +84,10 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		
 		if (this.dataMsgListener != null) {
 			try {
-				String jsonData = new String(context.getRequestPayload());
+				String jsonData = "";
 				
-				SensorData sensorData =
-					DataUtil.getInstance().jsonToSensorData(jsonData);
+				jsonData  =
+					DataUtil.getInstance().sensorDataToJson(this.sensorData);
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -113,7 +114,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update sensor  data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
@@ -127,10 +128,11 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		
 		if (this.dataMsgListener != null) {
 			try {
-				String jsonData = new String(context.getRequestPayload());
+				String jsonData = "";
 				
-				SensorData sensorData =
-					DataUtil.getInstance().jsonToSensorData(jsonData);
+				jsonData  =
+					DataUtil.getInstance().sensorDataToJson(this.sensorData);
+				
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -157,7 +159,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update Sensor data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
@@ -170,10 +172,11 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		
 		if (this.dataMsgListener != null) {
 			try {
-				String jsonData = new String(context.getRequestPayload());
+				String jsonData = "";
 				
-				SensorData sensorData =
-					DataUtil.getInstance().jsonToSensorData(jsonData);
+				jsonData  =
+					DataUtil.getInstance().sensorDataToJson(this.sensorData);
+				
 				
 				// TODO: Choose the following (but keep it idempotent!) 
 				//   1) Check MID to see if it’s repeated for some reason
@@ -200,7 +203,7 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		}
 		
 		String msg =
-			"Update system perf data request handled: " + super.getName();
+			"Update sensor data request handled: " + super.getName();
 		
 		context.respond(code, msg);
 	}
