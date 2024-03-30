@@ -51,13 +51,14 @@ public class CoapServerGateway {
 
 	private IDataMessageListener dataMsgListener = null;
 
-	// constructors
+	
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param dataMsgListener
-	 */
+	// constructors
+    /**
+     * Constructor for initializing a CoapServerGateway.
+     * 
+     * @param dataMsgListener Listener for handling data messages.
+     */
 	public CoapServerGateway(IDataMessageListener dataMsgListener) {
 		super();
 
@@ -70,11 +71,15 @@ public class CoapServerGateway {
 		initServer();
 	}
 
-	CoapResource top = new CoapResource("PIOT").add(
-			new CoapResource("ConstrainedDevice").add(
-					new UpdateSystemPerformanceResourceHandler("SystemPerfMsg")));
+	
 	// public methods
-
+    /**
+     * Adds a CoAP server resource to the gateway.
+     * 
+     * @param resourceType Type of the resource.
+     * @param endName      End name of the resource.
+     * @param resource     CoAP resource to be added.
+     */
 	public void addResource(ResourceNameEnum resourceType, String endName, Resource resource) {
 		// TODO: while not needed for this exercise, you may want to include
 		// the endName parameter as part of this resource chain creation process
@@ -87,6 +92,13 @@ public class CoapServerGateway {
 		}
 	}
 
+
+	/**
+     * Creates and adds a resource chain to the CoAP server.
+     * 
+     * @param resourceType Type of the resource.
+     * @param resource     CoAP resource to be added.
+     */
 	private void createAndAddResourceChain(ResourceNameEnum resourceType, Resource resource) {
 		_Logger.info("Adding server resource handler chain: " + resourceType.getResourceName());
 
@@ -124,16 +136,32 @@ public class CoapServerGateway {
 		}
 	}
 
+	/**
+     * Checks if a resource with the given name exists in the server.
+     * 
+     * @param name Name of the resource to check.
+     * @return True if the resource exists, otherwise false.
+     */
 	public boolean hasResource(String name) {
 		return false;
 	}
 
+	/**
+     * Sets the data message listener for the gateway.
+     * 
+     * @param listener Data message listener.
+     */
 	public void setDataMessageListener(IDataMessageListener listener) {
 		if (listener != null) {
 			this.dataMsgListener = listener;
 		}
 	}
 
+	/**
+     * Starts the CoAP server.
+     * 
+     * @return True if the server started successfully, otherwise false.
+     */
 	public boolean startServer() {
 		try {
 			if (this.coapServer != null) {
@@ -154,6 +182,11 @@ public class CoapServerGateway {
 		return false;
 	}
 
+	/**
+     * Stops the CoAP server.
+     * 
+     * @return True if the server stopped successfully, otherwise false.
+     */
 	public boolean stopServer()
 
 	{
@@ -173,17 +206,32 @@ public class CoapServerGateway {
 	}
 
 	// private methods
+	/**
+     * Creates a resource chain for the given resource name enumeration.
+     * 
+     * @param resource Type of the resource to create a chain for.
+     * @return The created resource chain.
+     */
 
 	private Resource createResourceChain(ResourceNameEnum resource) {
 		return null;
 	}
 
+	// private methods
+    /**
+     * Initializes the CoAP server with default resources.
+     * 
+     * @param resources Array of default resource names.
+     */
 	private void initServer(ResourceNameEnum... resources) {
 		this.coapServer = new CoapServer();
 
 		initDefaultResources();
 	}
 
+	/**
+     * Initializes default resources for the CoAP server.
+     */
 	private void initDefaultResources() {
 		// initialize pre-defined resources
 		GetActuatorCommandResourceHandler getActuatorCmdResourceHandler = new GetActuatorCommandResourceHandler(

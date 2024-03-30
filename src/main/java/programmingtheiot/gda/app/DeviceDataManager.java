@@ -66,7 +66,6 @@ public class DeviceDataManager implements IDataMessageListener
 	public DeviceDataManager()
 	{
 		super();
-		
 	
 	ConfigUtil configUtil = ConfigUtil.getInstance();
 	this.coapServer = new CoapServerGateway(this);
@@ -126,6 +125,8 @@ public class DeviceDataManager implements IDataMessageListener
 		// TODO: implement this as an optional exercise in Lab Module 5
 	}
 }
+
+	//Constructor with Parameters
 	
 	 public DeviceDataManager(
 	 	boolean enableMqttClient,
@@ -167,18 +168,24 @@ public class DeviceDataManager implements IDataMessageListener
 		}
 	}
 
+	/**
+     * Handles incoming data analysis for actuator data.
+     * 
+     * @param resource Type of the resource receiving the data.
+     * @param data     Actuator data to be analyzed.
+     */
 	private void handleIncomingDataAnalysis(ResourceNameEnum resource, ActuatorData data)
-{
-	_Logger.info("Analyzing incoming actuator data: " + data.getName());
-	
-	if (data.isResponseFlagEnabled()) {
-		// TODO: implement this
-	} else {
-		if (this.actuatorDataListener != null) {
-			this.actuatorDataListener.onActuatorDataUpdate(data);
+	{
+		_Logger.info("Analyzing incoming actuator data: " + data.getName());
+		
+		if (data.isResponseFlagEnabled()) {
+			// TODO: implement this
+		} else {
+			if (this.actuatorDataListener != null) {
+				this.actuatorDataListener.onActuatorDataUpdate(data);
+			}
 		}
 	}
-}
 	/**
      * Handles a request for an actuator command.
      *
