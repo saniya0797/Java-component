@@ -16,6 +16,12 @@ import programmingtheiot.data.SystemPerformanceData;
 
 public class UpdateTelemetryResourceHandler extends CoapResource {
 
+	/**
+     * Constructor for UpdateTelemetryResourceHandler.
+     * 
+     * @param resourceName Name of the resource.
+     */
+
     public UpdateTelemetryResourceHandler(String resourceName) {
         super(resourceName);
         //TODO Auto-generated constructor stub
@@ -32,6 +38,12 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		this.dataMsgListener = listener;
 	}
     }
+
+	/**
+     * Handles PUT requests for updating telemetry data.
+     * 
+     * @param context CoapExchange context for the PUT request.
+     */
     @Override
 	public void handlePUT(CoapExchange context)
 	{
@@ -75,6 +87,12 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		
 		context.respond(code, msg);
 	}
+
+	/**
+     * Handles GET requests for updating telemetry data.
+     * 
+     * @param context CoapExchange context for the GET request.
+     */
 	@Override
 	public void handleGET(CoapExchange context)
 	{
@@ -119,6 +137,11 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		context.respond(code, msg);
 	}
 
+	/**
+     * Handles POST requests for updating telemetry data.
+     * 
+     * @param context CoapExchange context for the POST request.
+     */
 	@Override
 	public void handlePOST(CoapExchange context)
 	{
@@ -163,6 +186,12 @@ public class UpdateTelemetryResourceHandler extends CoapResource {
 		
 		context.respond(code, msg);
 	}
+
+	/**
+     * Handles DELETE requests for updating telemetry data.
+     * 
+     * @param context CoapExchange context for the DELETE request.
+     */
 	@Override
 	public void handleDELETE(CoapExchange context)
 	{
