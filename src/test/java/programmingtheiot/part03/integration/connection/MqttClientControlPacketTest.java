@@ -46,7 +46,7 @@ public class MqttClientControlPacketTest
 	
 	
 	private String testTopic = "testTopic";
-    private int qos = 1; // Change the QoS level as needed
+    private int qos ; // Change the QoS level as needed
 
     @Before
     public void setUp() throws Exception
@@ -90,15 +90,49 @@ public class MqttClientControlPacketTest
     {
         // Connect
         assertTrue(mqttClient.connectClient());
+        int delay = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.KEEP_ALIVE_KEY, ConfigConst.DEFAULT_KEEP_ALIVE);
 
         // Subscribe
-        assertTrue(mqttClient.subscribeToTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, qos));
+        assertTrue(mqttClient.subscribeToTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, 1));
 
         // Publish (QoS 1)
-        assertTrue(mqttClient.publishMessage(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, "Hello, MQTT!", qos));
+        assertTrue(mqttClient.publishMessage(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, "Hello, MQTT!", 1));
 
         // Unsubscribe
         assertTrue(mqttClient.unsubscribeFromTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE));
+        try {
+            Thread.sleep(delay*1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // Disconnect
+        assertTrue(mqttClient.disconnectClient());
+    }
+
+    @Test
+    public void testPubSubb()
+    {
+        // Connect
+        assertTrue(mqttClient.connectClient());
+        int delay = ConfigUtil.getInstance().getInteger(ConfigConst.MQTT_GATEWAY_SERVICE, ConfigConst.KEEP_ALIVE_KEY, ConfigConst.DEFAULT_KEEP_ALIVE);
+
+
+        // Subscribe
+        assertTrue(mqttClient.subscribeToTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, 2));
+
+        // Publish (QoS 2)
+        assertTrue(mqttClient.publishMessage(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE, "Hello, MQTT!", 2));
+
+        // Unsubscribe
+        assertTrue(mqttClient.unsubscribeFromTopic(ResourceNameEnum.CDA_UPDATE_NOTIFICATIONS_RESOURCE));
+        try {
+            Thread.sleep(delay*1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Disconnect
         assertTrue(mqttClient.disconnectClient());
