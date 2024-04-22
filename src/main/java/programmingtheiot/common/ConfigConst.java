@@ -192,6 +192,7 @@ public class ConfigConst
 	public static final String DEVICE_LOCATION_ID_KEY        = "deviceLocationID";
 	
 	public static final String ENABLE_MQTT_CLIENT_KEY        = "enableMqttClient";
+	
 	public static final String ENABLE_COAP_CLIENT_KEY        = "enableCoapClient";
 	public static final String ENABLE_COAP_SERVER_KEY        = "enableCoapServer";
 	public static final String ENABLE_CLOUD_CLIENT_KEY       = "enableCloudClient";

@@ -40,15 +40,15 @@ enableCrypt    = True
 #
 [Mqtt.GatewayService]
 credFile       = ./cred/PiotMqttCred.props
-certFile       = /connectedDevices/mosquitto-2.0.18/certs/server.crt
+certFile       = /etc/mosquitto/certs/server.crt
 host           = localhost
 port           = 1883
 securePort     = 8883
 defaultQoS     = 0
 keepAlive      = 60
 enableAuth     = False
-enableCrypt    = True
-useAsyncClient = False
+enableCrypt    = False
+useAsyncClient = True
 
 #
 # CoAP client and server configuration information
@@ -70,8 +70,8 @@ enableConfirmedMsgs = True
 deviceLocationID        = gatewaydevice001
 enableLogging           = True
 pollCycleSecs           = 60
-enableMqttClient        = False
-enableCoapServer        = True
+enableMqttClient        = True
+enableCoapServer        = False
 enableCoapClient        = False
 enableCloudClient       = False
 enableSmtpClient        = False
