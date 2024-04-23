@@ -75,6 +75,10 @@ public class DeviceDataManager implements IDataMessageListener
 	private float   triggerHumidifierFloor   = 30.0f;
 	private float   triggerHumidifierCeiling = 50.0f;
 
+	
+
+	
+
 	// constructors
 	/**
      * Default constructor for DeviceDataManager.
@@ -83,6 +87,7 @@ public class DeviceDataManager implements IDataMessageListener
 	public DeviceDataManager()
 	{
 		super();
+	
 	
 	ConfigUtil configUtil = ConfigUtil.getInstance();
 	this.coapServer = new CoapServerGateway(this);
