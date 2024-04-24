@@ -192,6 +192,7 @@ public class ConfigConst
 	public static final String DEVICE_LOCATION_ID_KEY        = "deviceLocationID";
 	
 	public static final String ENABLE_MQTT_CLIENT_KEY        = "enableMqttClient";
+	
 	public static final String ENABLE_COAP_CLIENT_KEY        = "enableCoapClient";
 	public static final String ENABLE_COAP_SERVER_KEY        = "enableCoapServer";
 	public static final String ENABLE_CLOUD_CLIENT_KEY       = "enableCloudClient";
@@ -286,6 +287,17 @@ public class ConfigConst
 	public static final String ENV_DATA_BUCKET_KEY = "envDataBucket";
 	public static final String SYS_DATA_BUCKET_KEY = "sysDataBucket";
 	
+	
+	public static  boolean True;
+
+	public static final int humidityMaxTimePastThreshold = 300;
+
+	public static final float nominalHumiditySetting       =  (float) 40.0;
+
+	public static final float triggerHumidifierFloor       = (float) 30.0;
+
+	public static final float triggerHumidifierCeiling     = (float) 50.0;
+		
 	// constructors
 	
 	/**
