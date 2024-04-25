@@ -11,18 +11,18 @@
 # Cloud client configuration information
 #
 [Cloud.GatewayService]
-credFile       = ./cred/PiotCloudCred.props
-certFile       = ./cert/PiotCloudCert.pem
-host           = localhost
+credFile       = /connectedDevices/UbidotsCloudCred.props
+certFile       = /connectedDevices/UbidotsCloudCred.pem
+host           = industrial.api.ubidots.com
 port           = 1883
 securePort     = 8883
 defaultQoS     = 0
 keepAlive      = 60
-useAsyncClient = True
-enableAuth     = True
+enableAuth     = False
 enableCrypt    = True
-baseUrl        = 
-baseTopic      = 
+enableCloudClient =True
+baseUrl        =    https://things.ubidots.com/api/v1.6/
+baseTopic      = /v1.6/devices/
 
 #
 # SMTP client configuration information
@@ -47,7 +47,7 @@ securePort     = 8883
 defaultQoS     = 0
 keepAlive      = 60
 enableAuth     = False
-enableCrypt    = False
+enableCrypt    = True
 useAsyncClient = True
 
 #
@@ -73,10 +73,10 @@ pollCycleSecs           = 60
 enableMqttClient        = True
 enableCoapServer        = False
 enableCoapClient        = False
-enableCloudClient       = False
+enableCloudClient       = True
 enableSmtpClient        = False
-enablePersistenceClient = False
-enableSystemPerformance = False
+enablePersistenceClient = True
+enableSystemPerformance = True
 testGdaDataPath         = /tmp/gda-data
 testCdaDataPath         = /tmp/cda-data
 testEmptyApp            = False

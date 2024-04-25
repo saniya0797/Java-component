@@ -151,6 +151,8 @@ public class ConfigConst
 
 	// this is included here for testing purposes only
 	public static final String TEMP_SENSOR_NAME = "TempSensor";
+	public static final String PRESSURE_SENSOR_NAME = "PressureSensor";
+
 	
 	public static final String CPU_UTIL_NAME  = "CpuUtil";
 	public static final String DISK_UTIL_NAME = "DiskUtil";
