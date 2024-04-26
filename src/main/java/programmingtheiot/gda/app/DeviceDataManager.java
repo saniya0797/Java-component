@@ -73,6 +73,7 @@ public class DeviceDataManager implements IDataMessageListener
 	public DeviceDataManager()
 	{
 		super();
+
 		ConfigUtil configUtil = ConfigUtil.getInstance();
 		this.cloudClient = new CloudClientConnector();
 		
@@ -81,6 +82,7 @@ public class DeviceDataManager implements IDataMessageListener
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
 		this.enableCoapServer =
 			configUtil.getBoolean(
+				
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_COAP_SERVER_KEY);
 		this.enableCloudClient =
 			configUtil.getBoolean(
@@ -88,8 +90,10 @@ public class DeviceDataManager implements IDataMessageListener
 		this.enablePersistenceClient =
 			configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_PERSISTENCE_CLIENT_KEY);
+
 		// parse config rules for local actuation events
 		// TODO: add these to ConfigConst
+		//gitstatus lab 12
 		this.handleHumidityChangeOnDevice =
 			configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, "handleHumidityChangeOnDevice");
