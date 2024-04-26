@@ -43,7 +43,7 @@ public class DeviceDataManager implements IDataMessageListener
 	// private var's
 	private boolean enableMqttClient = true;
 	private boolean enableCoapServer = false;
-	private boolean enableCloudClient = false;
+	private boolean enableCloudClient = true;
 	private boolean enableSmtpClient = false;
 	private boolean enablePersistenceClient = false;
 	private boolean enableSystemPerf = true;
@@ -65,7 +65,7 @@ public class DeviceDataManager implements IDataMessageListener
 	private IDataMessageListener dataMsgListener = null;
 	private int qosLevel = 1;
 	// TODO: Load these from PiotConfig.props
-	private long    humidityMaxTimePastThreshold = 10; // seconds
+	private long    humidityMaxTimePastThreshold = 300; // seconds
 	private float   nominalHumiditySetting   = 40.0f;
 	private float   triggerHumidifierFloor   = 30.0f;
 	private float   triggerHumidifierCeiling = 50.0f;
@@ -74,6 +74,8 @@ public class DeviceDataManager implements IDataMessageListener
 	{
 		super();
 		ConfigUtil configUtil = ConfigUtil.getInstance();
+		this.cloudClient = new CloudClientConnector();
+		
 		this.enableMqttClient =
 			configUtil.getBoolean(
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
@@ -117,7 +119,7 @@ public class DeviceDataManager implements IDataMessageListener
 		boolean enablePersistenceClient)
 	{
 		super();
-		initConnections();
+		initManager();
 	}
 	// public methods
 	@Override
@@ -211,9 +213,9 @@ public class DeviceDataManager implements IDataMessageListener
 			}
 			if (this.cloudClient != null) {
 				// TODO: handle any failures
-				//if (this.cloudClient.sendEdgeDataToCloud(resourceName, data)) {
-					//_Logger.fine("Sent SystemPerformanceData upstream to CSP.");
-				//}
+				if (this.cloudClient.sendEdgeDataToCloud(resourceName, data)) {
+					_Logger.fine("Sent SystemPerformanceData upstream to CSP.");
+				}
 			}
 			return true;
 		} else {
@@ -458,9 +460,7 @@ public class DeviceDataManager implements IDataMessageListener
 	}
  
 
-	private void initConnections()
-	{
-	}
+	
 	private void initManager()
 	{
 		ConfigUtil configUtil = ConfigUtil.getInstance();

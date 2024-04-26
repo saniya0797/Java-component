@@ -33,6 +33,8 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener
 	private IDataMessageListener dataMsgListener = null;
 	//Set 0 or 1 depends on the actual implementation
 	private int qosLevel = 1;
+	private ActuatorData actuatorData;
+	
 	// constructors
 	/**
 	 * Default.
@@ -92,18 +94,18 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener
         String ledTopic = createTopicName(ledListener.getResource().getDeviceName(), ad.getName());
         String adJson = DataUtil.getInstance().actuatorDataToJson(ad);
         this.publishMessageToCloud(ledTopic,adJson);
-        // try {
-        //  Thread.sleep(30000);
-        // }
-        // catch (InterruptedException e ) {
-        // }
+         try {
+        Thread.sleep(30000);
+         }
+        catch (InterruptedException e ) {
+       }
         SystemPerformanceData sysPerfData = new SystemPerformanceData();
         this.subscribeToCloudEvents(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE);
-        // try {
-        //  Thread.sleep(30000);
-        // }
-        // catch (InterruptedException e ) {
-        // }
+        try {
+       Thread.sleep(30000);
+         }
+         catch (InterruptedException e ) {
+         }
         this.sendEdgeDataToCloud(ResourceNameEnum.CDA_SYSTEM_PERF_MSG_RESOURCE, sysPerfData);
         this.mqttClient.subscribeToTopic(ledTopic, this.qosLevel, ledListener);
     }
@@ -119,6 +121,10 @@ public class CloudClientConnector implements ICloudClient, IConnectionListener
 			this.dataMsgListener = listener;
 			return true;
 		}
+		// if(this.dataMsgListener!=null){
+		// 	this.dataMsgListener.handleActuatorCommandRequest(ResourceNameEnum.CDA_ACTUATOR_CMD_RESOURCE, actuatorData);
+		// }
+		
 		return false;
 	}
 	@Override
