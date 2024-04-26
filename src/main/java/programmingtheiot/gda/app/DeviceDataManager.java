@@ -82,6 +82,7 @@ public class DeviceDataManager implements IDataMessageListener
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_MQTT_CLIENT_KEY);
 		this.enableCoapServer =
 			configUtil.getBoolean(
+				
 				ConfigConst.GATEWAY_DEVICE, ConfigConst.ENABLE_COAP_SERVER_KEY);
 		this.enableCloudClient =
 			configUtil.getBoolean(
